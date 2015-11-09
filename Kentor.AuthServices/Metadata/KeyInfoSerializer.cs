@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IdentityModel.Selectors;
 using System.IdentityModel.Tokens;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Security.Cryptography.Xml;
 using System.ServiceModel.Security;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace Kentor.AuthServices.Metadata

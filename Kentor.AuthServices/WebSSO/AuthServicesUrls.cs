@@ -1,9 +1,5 @@
 ﻿using Kentor.AuthServices.Configuration;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Kentor.AuthServices.WebSso
 {
@@ -82,7 +78,7 @@ namespace Kentor.AuthServices.WebSso
 
             var authServicesRoot = applicationUrl.AbsoluteUri.TrimEnd('/') + modulePath + "/";
 
-            AssertionConsumerServiceUrl = new Uri(authServicesRoot + CommandFactory.AcsCommandName);
+            AssertionConsumerServiceUrl = new Uri(authServicesRoot + CommandFactory.SignInCommandName);
             SignInUrl = new Uri(authServicesRoot + CommandFactory.SignInCommandName);
         }
 

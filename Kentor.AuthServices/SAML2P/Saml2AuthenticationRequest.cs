@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 using Kentor.AuthServices.Internal;
@@ -32,6 +27,14 @@ namespace Kentor.AuthServices.Saml2P
         }
 
         /// <summary>
+        /// The SAML2 NameIdPolicy tag
+        /// </summary>
+        protected string NameIdPolicy
+        {
+            get { return "NameIdPolicy"; }
+        }
+
+        /// <summary>
         /// Serializes the request to a Xml message.
         /// </summary>
         /// <returns>XElement</returns>
@@ -42,6 +45,11 @@ namespace Kentor.AuthServices.Saml2P
             x.Add(base.ToXNodes());
             x.AddAttributeIfNotNullOrEmpty("AssertionConsumerServiceURL", AssertionConsumerServiceUrl);
             x.AddAttributeIfNotNullOrEmpty("AttributeConsumingServiceIndex", AttributeConsumingServiceIndex);
+
+            // Add parameter for nameid policy
+            var n = new XElement(Saml2Namespaces.Saml2P + NameIdPolicy);
+            n.AddAttributeIfNotNullOrEmpty("AllowCreate", NameIdPolicyAllowCreate);
+            x.Add(n);
 
             return x;
         }
@@ -95,5 +103,10 @@ namespace Kentor.AuthServices.Saml2P
         /// Index to the SP metadata where the list of requested attributes is found.
         /// </summary>
         public int? AttributeConsumingServiceIndex { get; set; }
+
+        /// <summary>
+        /// NameIdPolicy allowCreate parameter
+        /// </summary>
+        public string NameIdPolicyAllowCreate { get; set; }
     }
 }

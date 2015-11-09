@@ -5,14 +5,10 @@ using System.Configuration;
 using System.Globalization;
 using System.IdentityModel.Metadata;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using Kentor.AuthServices.Internal;
 using Kentor.AuthServices.Metadata;
 using Kentor.AuthServices.Saml2P;
 using System.IdentityModel.Configuration;
-using System.IdentityModel.Services.Configuration;
 using System.Security.Cryptography.X509Certificates;
 using System.Diagnostics.CodeAnalysis;
 

@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Deployment.Internal.CodeSigning;
-using System.IdentityModel.Configuration;
-using System.IdentityModel.Metadata;
-using System.Linq;
+﻿using System.Deployment.Internal.CodeSigning;
 using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Kentor.AuthServices.Configuration
 {

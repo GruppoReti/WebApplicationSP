@@ -3,9 +3,7 @@ using System;
 using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using System.Linq;
 using System.Security.Cryptography.X509Certificates;
-using System.Web;
 
 namespace Kentor.AuthServices.Configuration
 {

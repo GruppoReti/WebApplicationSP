@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Globalization;
 using System.IdentityModel.Tokens;
-using System.Linq;
 using System.Xml.Linq;
 using Kentor.AuthServices.Internal;
 

@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
 
 namespace Kentor.AuthServices.WebSso
 {
@@ -28,6 +25,11 @@ namespace Kentor.AuthServices.WebSso
         /// Uri identifier of the Discovery Response SAML extension.
         /// </summary>
         public static readonly Uri DiscoveryResponseUri = new Uri("urn:oasis:names:tc:SAML:profiles:SSO:idp-discovery-protocol");
+
+        /// <summary>
+        /// Uri identifier of the Request Initiator SAML extension.
+        /// </summary>
+        public static readonly Uri RequestInitiatorUri = new Uri("urn:oasis:names:tc:SAML:profiles:SSO:request-init");
 
         /// <summary>
         /// Bind the message to a transport.

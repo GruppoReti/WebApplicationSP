@@ -2,12 +2,9 @@
 using Kentor.AuthServices.Metadata;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
 using System.IdentityModel.Metadata;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Kentor.AuthServices

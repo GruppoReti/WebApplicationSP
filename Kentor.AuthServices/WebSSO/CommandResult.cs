@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using System.IdentityModel.Services;
-using System.IdentityModel.Tokens;
 using System.Net;
 using System.Security.Claims;
-using System.Web;
 
 namespace Kentor.AuthServices.WebSso
 {

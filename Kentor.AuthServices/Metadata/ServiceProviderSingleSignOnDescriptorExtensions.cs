@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Metadata;
-using System.Linq;
-using System.Text;
+﻿using System.IdentityModel.Metadata;
 
 namespace Kentor.AuthServices.Metadata
 {
@@ -12,6 +8,15 @@ namespace Kentor.AuthServices.Metadata
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "SignOn", Justification = "Using SAML2 established terms." )]
     public class ServiceProviderSingleSignOnDescriptorExtensions
     {
+        /// <summary>
+        /// RequestInitiator url.
+        /// </summary>
+        public ProtocolEndpoint RequestInitiator
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// Discovery Service response url.
         /// </summary>

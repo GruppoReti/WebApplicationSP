@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IdentityModel.Metadata;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 using Kentor.AuthServices.Configuration;
 using Kentor.AuthServices.WebSso;
 using System.IdentityModel.Tokens;
@@ -69,6 +64,13 @@ namespace Kentor.AuthServices.Metadata
                     Location = urls.SignInUrl
                 };
             }
+
+            // Add request initiator to SPSSO metadata (required field)
+            spsso.Extensions.RequestInitiator = new ProtocolEndpoint
+            {
+                Binding = Saml2Binding.RequestInitiatorUri,
+                Location = urls.SignInUrl
+            };
 
             ed.RoleDescriptors.Add(spsso);
 

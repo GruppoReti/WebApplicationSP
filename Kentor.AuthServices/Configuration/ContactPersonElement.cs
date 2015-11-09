@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Diagnostics;
 using System.IdentityModel.Metadata;
-using System.Linq;
-using System.Text;
 
 namespace Kentor.AuthServices.Configuration
 {

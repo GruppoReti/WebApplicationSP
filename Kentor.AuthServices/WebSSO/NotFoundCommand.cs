@@ -1,9 +1,5 @@
 ﻿using Kentor.AuthServices.Configuration;
-using System;
-using System.Collections.Specialized;
-using System.Linq;
 using System.Net;
-using System.Web;
 
 namespace Kentor.AuthServices.WebSso
 {

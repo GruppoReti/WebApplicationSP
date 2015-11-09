@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IdentityModel.Tokens;
-using System.Linq;
 
 namespace Kentor.AuthServices.Internal
 {

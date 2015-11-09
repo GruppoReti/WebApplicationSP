@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Kentor.AuthServices.Configuration;
+﻿using Kentor.AuthServices.Configuration;
 using System;
 using System.Configuration;
 using System.Globalization;
@@ -219,7 +218,8 @@ namespace Kentor.AuthServices
                 AssertionConsumerServiceUrl = authServicesUrls.AssertionConsumerServiceUrl,
                 Issuer = spOptions.EntityId,
                 // For now we only support one attribute consuming service.
-                AttributeConsumingServiceIndex = spOptions.AttributeConsumingServices.Any() ? 0 : (int?)null
+                AttributeConsumingServiceIndex = spOptions.AttributeConsumingServices.Any() ? 0 : (int?)null,
+                NameIdPolicyAllowCreate = "1"
             };
 
             var responseData = new StoredRequestState(EntityId, returnUrl, relayData);

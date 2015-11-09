@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Globalization;
 using System.IdentityModel.Metadata;
 using System.IdentityModel.Selectors;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -73,6 +68,10 @@ namespace Kentor.AuthServices.Metadata
                 if (extendedSPSsoDescriptor.Extensions.DiscoveryResponse != null)
                 {
                     writer.WriteStartElement("Extensions", Saml2Namespaces.Saml2MetadataName);
+                    WriteProtocolEndpoint(
+                        writer,
+                        extendedSPSsoDescriptor.Extensions.RequestInitiator,
+                        new XmlQualifiedName("RequestInitiator", Saml2Namespaces.Saml2RequestInitiatorName));
                     WriteIndexedProtocolEndpoint(
                         writer,
                         extendedSPSsoDescriptor.Extensions.DiscoveryResponse,

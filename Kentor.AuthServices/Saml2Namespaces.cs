@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 
 namespace Kentor.AuthServices
 {
@@ -62,5 +56,16 @@ namespace Kentor.AuthServices
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
         public static readonly XNamespace XmlSchemaInstance = XNamespace.Get(System.Xml.Schema.XmlSchema.InstanceNamespace);
+
+        /// <summary>
+        /// Namespace of SAML2 Request Initiator.
+        /// </summary>
+        public const string Saml2RequestInitiatorName = "urn:oasis:names:tc:SAML:profiles:SSO:request-init";
+
+        /// <summary>
+        /// Namespace of SAML2 Metadata.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
+        public static readonly XNamespace Saml2RequestInitiator = XNamespace.Get(Saml2RequestInitiatorName);
     }
 }

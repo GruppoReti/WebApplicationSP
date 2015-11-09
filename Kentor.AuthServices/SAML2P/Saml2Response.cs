@@ -10,7 +10,6 @@ using System.Xml;
 using Kentor.AuthServices.Configuration;
 using System.IdentityModel.Metadata;
 using System.Security.Cryptography;
-using System.IdentityModel.Services;
 using Kentor.AuthServices.Internal;
 
 namespace Kentor.AuthServices.Saml2P

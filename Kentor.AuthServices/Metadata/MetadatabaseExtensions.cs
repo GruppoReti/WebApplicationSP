@@ -1,10 +1,5 @@
-﻿using Kentor.AuthServices.Configuration;
-using System;
-using System.Collections.Generic;
-using System.IdentityModel.Metadata;
+﻿using System.IdentityModel.Metadata;
 using System.IO;
-using System.Linq;
-using System.Web;
 
 namespace Kentor.AuthServices.Metadata
 {

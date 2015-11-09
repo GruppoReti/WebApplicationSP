@@ -2,13 +2,8 @@
 using Kentor.AuthServices.Saml2P;
 using System;
 using System.Configuration;
-using System.IdentityModel.Metadata;
-using System.IdentityModel.Services;
 using System.Net;
 using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
-using System.Web;
 using System.Xml;
 
 namespace Kentor.AuthServices.WebSso
