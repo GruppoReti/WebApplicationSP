@@ -49,8 +49,9 @@ namespace Kentor.AuthServices.Saml2P
             // Add parameter for nameid policy
             var n = new XElement(Saml2Namespaces.Saml2P + NameIdPolicy);
             n.AddAttributeIfNotNullOrEmpty("AllowCreate", NameIdPolicyAllowCreate);
+            n.Value = string.Empty;
             x.Add(n);
-
+            
             return x;
         }
 

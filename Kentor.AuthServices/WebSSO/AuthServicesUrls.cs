@@ -78,7 +78,7 @@ namespace Kentor.AuthServices.WebSso
 
             var authServicesRoot = applicationUrl.AbsoluteUri.TrimEnd('/') + modulePath + "/";
 
-            AssertionConsumerServiceUrl = new Uri(authServicesRoot + CommandFactory.SignInCommandName);
+            AssertionConsumerServiceUrl = new Uri(authServicesRoot + CommandFactory.AcsCommandName);
             SignInUrl = new Uri(authServicesRoot + CommandFactory.SignInCommandName);
         }
 
