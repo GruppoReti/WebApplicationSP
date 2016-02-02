@@ -72,5 +72,10 @@ namespace Kentor.AuthServices.Configuration
         /// Certificate for service provider to use when decrypting assertions
         /// </summary>
         X509Certificate2 ServiceCertificate { get; set; }
+
+        /// <summary>
+        /// Requested authentication context for the authentication request
+        /// </summary>
+        string RequestedAuthenticationContext { get; }
     }
 }

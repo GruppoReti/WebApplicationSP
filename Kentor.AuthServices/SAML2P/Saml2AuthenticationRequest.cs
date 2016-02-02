@@ -35,23 +35,49 @@ namespace Kentor.AuthServices.Saml2P
         }
 
         /// <summary>
+        /// The SAML2 RequestedAuthnContext tag
+        /// </summary>
+        protected string RequestedAuthnContext
+        {
+            get { return "RequestedAuthnContext"; }
+        }
+
+        /// <summary>
+        /// The SAML2 AuthnContextClassRef tag
+        /// </summary>
+        protected string AuthnContextClassRef
+        {
+            get { return "AuthnContextClassRef"; }
+        }   
+
+        /// <summary>
         /// Serializes the request to a Xml message.
         /// </summary>
         /// <returns>XElement</returns>
         public XElement ToXElement()
         {
+            // Create base element and set attributes
             var x = new XElement(Saml2Namespaces.Saml2P + LocalName);
-
             x.Add(base.ToXNodes());
             x.AddAttributeIfNotNullOrEmpty("AssertionConsumerServiceURL", AssertionConsumerServiceUrl);
             x.AddAttributeIfNotNullOrEmpty("AttributeConsumingServiceIndex", AttributeConsumingServiceIndex);
 
             // Add parameter for nameid policy
-            var n = new XElement(Saml2Namespaces.Saml2P + NameIdPolicy);
-            n.AddAttributeIfNotNullOrEmpty("AllowCreate", NameIdPolicyAllowCreate);
-            n.Value = string.Empty;
-            x.Add(n);
-            
+            var nameid = new XElement(Saml2Namespaces.Saml2P + NameIdPolicy);
+            nameid.AddAttributeIfNotNullOrEmpty("AllowCreate", NameIdPolicyAllowCreate);
+            x.Add(nameid);
+
+            // Add requested authentication context
+            if (RequestedAuthenticationContext != null && RequestedAuthenticationContext != string.Empty)
+            { 
+                var authc = new XElement(Saml2Namespaces.Saml2P + RequestedAuthnContext);
+                authc.AddAttributeIfNotNullOrEmpty("Comparison", "exact");
+                var authcRef = new XElement(Saml2Namespaces.Saml2 + AuthnContextClassRef);
+                authcRef.Value = RequestedAuthenticationContext;
+                authc.Add(authcRef);
+                x.Add(authc);
+            }
+
             return x;
         }
 
@@ -79,7 +105,7 @@ namespace Kentor.AuthServices.Saml2P
             var x = new XmlDocument();
             x.PreserveWhitespace = true;
             x.LoadXml(xml);
-
+            
             return new Saml2AuthenticationRequest(x);
         }
 
@@ -99,6 +125,11 @@ namespace Kentor.AuthServices.Saml2P
         /// The assertion consumer url that the idp should send its response back to.
         /// </summary>
         public Uri AssertionConsumerServiceUrl { get; set; }
+
+        /// <summary>
+        /// The requested authentication context for the authentication request.
+        /// </summary>
+        public string RequestedAuthenticationContext { get; set; }
 
         /// <summary>
         /// Index to the SP metadata where the list of requested attributes is found.

@@ -84,6 +84,12 @@ namespace Kentor.AuthServices.Configuration
             }
         }
 
+        /// <summary>
+        /// RequestedAuthenticationContext - The requested authentication request context to be used
+        /// to start a session for the user.
+        /// </summary>
+        public string RequestedAuthenticationContext { get; }
+
         private string modulePath = "/AuthServices";
 
         /// <summary>

@@ -121,6 +121,24 @@ namespace Kentor.AuthServices.Configuration
             }
         }
 
+        /// <summary>
+        /// Enable or disable the check for https certificates validity.
+        /// In production environments it is important that this flag is set to true (the default value).
+        /// For development purposes it can be set to false.
+        /// </summary>
+        [ConfigurationProperty("verifyCertificate", IsRequired = false, DefaultValue = true)]
+        public bool VerifyCertificate
+        {
+            get
+            {
+                return (bool)base["verifyCertificate"];
+            }
+            set
+            {
+                base["verifyCertificate"] = value;
+            }
+        }
+
         const string metadataUrl = "metadataUrl";
 
         /// <summary>

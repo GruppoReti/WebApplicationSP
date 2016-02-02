@@ -44,13 +44,8 @@ namespace Kentor.AuthServices
             AllowUnsolicitedAuthnResponse = config.AllowUnsolicitedAuthnResponse;
             metadataUrl = config.MetadataUrl;
 
-            var certificate = config.SigningCertificate.LoadCertificate();
-            if (certificate != null)
-            {
-                signingKeys.AddConfiguredItem(certificate.PublicKey.Key);
-            }
-
             // If configured to load metadata, this will immediately do the load.
+            VerifyCertificate = config.VerifyCertificate;
             LoadMetadata = config.LoadMetadata;
             this.spOptions = spOptions;
 
@@ -59,6 +54,15 @@ namespace Kentor.AuthServices
             if (!LoadMetadata)
             {
                 Validate();
+            }
+
+            // Certificates from metadata already present, add eventual other certificates
+            // from web.config.
+            var certificate = config.SigningCertificate.LoadCertificate();
+            if (certificate != null)
+            {
+                signingKeys = new ConfiguredAndLoadedCollection<AsymmetricAlgorithm>();
+                signingKeys.AddConfiguredItem(certificate.PublicKey.Key);
             }
         }
 
@@ -80,6 +84,7 @@ namespace Kentor.AuthServices
             }
         }
 
+        private bool VerifyCertificate;
         private bool loadMetadata;
 
         /// <summary>
@@ -99,7 +104,7 @@ namespace Kentor.AuthServices
                 {
                     try
                     {
-                        DoLoadMetadata();
+                        DoLoadMetadata(VerifyCertificate);
                         Validate();
                     }
                     catch (WebException)
@@ -219,7 +224,8 @@ namespace Kentor.AuthServices
                 Issuer = spOptions.EntityId,
                 // For now we only support one attribute consuming service.
                 AttributeConsumingServiceIndex = spOptions.AttributeConsumingServices.Any() ? 0 : (int?)null,
-                NameIdPolicyAllowCreate = "1"
+                NameIdPolicyAllowCreate = "1",
+                RequestedAuthenticationContext = spOptions.RequestedAuthenticationContext
             };
 
             var responseData = new StoredRequestState(EntityId, returnUrl, relayData);
@@ -257,13 +263,13 @@ namespace Kentor.AuthServices
 
         object metadataLoadLock = new object();
 
-        private void DoLoadMetadata()
+        private void DoLoadMetadata(bool HasToVerifyCertificate)
         {
             lock (metadataLoadLock)
             {
                 try
                 {
-                    var metadata = MetadataLoader.LoadIdp(MetadataUrl);
+                    var metadata = MetadataLoader.LoadIdp(MetadataUrl, HasToVerifyCertificate);
 
                     ReadMetadata(metadata);
                 }
@@ -321,7 +327,7 @@ namespace Kentor.AuthServices
             var keys = idpDescriptor.Keys.Where(k => k.Use == KeyType.Unspecified || k.Use == KeyType.Signing);
 
             signingKeys.SetLoadedItems(keys.Select(k => ((AsymmetricSecurityKey)k.KeyInfo.CreateKey())
-            .GetAsymmetricAlgorithm(SignedXml.XmlDsigRSASHA1Url, false)).ToList());
+                .GetAsymmetricAlgorithm(SignedXml.XmlDsigRSASHA1Url, false)).ToList());
         }
 
         private DateTime? metadataValidUntil;
@@ -343,7 +349,7 @@ namespace Kentor.AuthServices
                 if (LoadMetadata)
                 {
                     Task.Delay(MetadataRefreshScheduler.GetDelay(value.Value))
-                        .ContinueWith((_) => DoLoadMetadata());
+                        .ContinueWith((_) => DoLoadMetadata(VerifyCertificate));
                 }
             }
         }
@@ -354,7 +360,7 @@ namespace Kentor.AuthServices
             {
                 lock (metadataLoadLock)
                 {
-                    DoLoadMetadata();
+                    DoLoadMetadata(VerifyCertificate);
                 }
             }
         }

@@ -136,6 +136,19 @@ namespace Kentor.AuthServices.Configuration
             }
         }
 
+        const string requestedAuthenticationContext = "requestedAuthenticationContext";
+        /// <summary>
+        /// The requested authentication context for the authentication request.
+        /// </summary>
+        [ConfigurationProperty(requestedAuthenticationContext, IsRequired = false)]
+        public string RequestedAuthenticationContext
+        {
+            get
+            {
+                return (string)base[requestedAuthenticationContext];
+            }
+        }
+
         private readonly Lazy<Saml2PSecurityTokenHandler> saml2PSecurityTokenHandler;
 
         /// <summary>

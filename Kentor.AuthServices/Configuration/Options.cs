@@ -20,7 +20,6 @@ namespace Kentor.AuthServices.Configuration
                 KentorAuthServicesSection.Current.IdentityProviders.RegisterIdentityProviders(options);
                 KentorAuthServicesSection.Current.Federations.RegisterFederations(options);
                 options.SPOptions.ServiceCertificate = KentorAuthServicesSection.Current.ServiceCertificateConfiguration.LoadCertificate();
-
                 return options;
             }
         }

@@ -2,6 +2,7 @@
 using System.IdentityModel.Metadata;
 using System.IO;
 using System.Net;
+using System.Net.Security;
 using System.Security.Cryptography.Xml;
 using System.Xml;
 
@@ -17,18 +18,38 @@ namespace Kentor.AuthServices.Metadata
         /// </summary>
         /// <param name="metadataUrl">Url to metadata</param>
         /// <returns>EntityDescriptor containing metadata</returns>
-        public static ExtendedEntityDescriptor LoadIdp(Uri metadataUrl)
+        public static ExtendedEntityDescriptor LoadIdp(Uri metadataUrl, bool VerifyCertificate)
         {
             if (metadataUrl == null)
             {
                 throw new ArgumentNullException(nameof(metadataUrl));
             }
 
-            return (ExtendedEntityDescriptor)Load(metadataUrl);
+            return (ExtendedEntityDescriptor)Load(metadataUrl, VerifyCertificate);
+        }
+
+        private static void InitiateSSLTrust()
+        {
+            //Change SSL checks so that all checks pass
+            ServicePointManager.ServerCertificateValidationCallback =
+                new RemoteCertificateValidationCallback(
+                    delegate
+                    { return true; }
+                );
         }
 
         private static MetadataBase Load(Uri metadataUrl)
         {
+            return Load(metadataUrl, true);
+        }
+
+        private static MetadataBase Load(Uri metadataUrl, bool VerifyCertificate)
+        {
+            if (!VerifyCertificate)
+            {
+                InitiateSSLTrust();
+            }
+
             using (var client = new WebClient())
             using (var stream = client.OpenRead(metadataUrl.ToString()))
             {
