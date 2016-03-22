@@ -43,18 +43,12 @@ namespace Kentor.AuthServices
             binding = config.Binding;
             AllowUnsolicitedAuthnResponse = config.AllowUnsolicitedAuthnResponse;
             metadataUrl = config.MetadataUrl;
+            ShowNameIdPolicy = config.ShowNameIdPolicy;
 
             // If configured to load metadata, this will immediately do the load.
             VerifyCertificate = config.VerifyCertificate;
             LoadMetadata = config.LoadMetadata;
             this.spOptions = spOptions;
-
-            // Validate if values are only from config. If metadata is loaded, validation
-            // is done on metadata load.
-            if (!LoadMetadata)
-            {
-                Validate();
-            }
 
             // Certificates from metadata already present, add eventual other certificates
             // from web.config.
@@ -64,6 +58,13 @@ namespace Kentor.AuthServices
                 signingKeys = new ConfiguredAndLoadedCollection<AsymmetricAlgorithm>();
                 signingKeys.AddConfiguredItem(certificate.PublicKey.Key);
             }
+
+            // Validate if values are only from config. If metadata is loaded, validation
+            // is done on metadata load.
+            if (!LoadMetadata)
+            {
+                Validate();
+            }
         }
 
         private void Validate()
@@ -72,7 +73,7 @@ namespace Kentor.AuthServices
             {
                 throw new ConfigurationErrorsException("Missing binding configuration on Idp " + EntityId.Id + ".");
             }
-
+            
             if (!SigningKeys.Any())
             {
                 throw new ConfigurationErrorsException("Missing signing certificate configuration on Idp " + EntityId.Id + ".");
@@ -86,6 +87,7 @@ namespace Kentor.AuthServices
 
         private bool VerifyCertificate;
         private bool loadMetadata;
+        private bool ShowNameIdPolicy;
 
         /// <summary>
         /// Should this idp load metadata? If you intend to set the
@@ -224,7 +226,7 @@ namespace Kentor.AuthServices
                 Issuer = spOptions.EntityId,
                 // For now we only support one attribute consuming service.
                 AttributeConsumingServiceIndex = spOptions.AttributeConsumingServices.Any() ? 0 : (int?)null,
-                NameIdPolicyAllowCreate = "1",
+                NameIdPolicyAllowCreate = (ShowNameIdPolicy) ? "1" : null,
                 RequestedAuthenticationContext = spOptions.RequestedAuthenticationContext
             };
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Xml;
 using System.Xml.Linq;
 using Kentor.AuthServices.Internal;
@@ -27,7 +28,8 @@ namespace Kentor.AuthServices.Saml2P
         }
 
         /// <summary>
-        /// The SAML2 NameIdPolicy tag
+        /// The SAML2 
+        /// tag
         /// </summary>
         protected string NameIdPolicy
         {
@@ -63,9 +65,12 @@ namespace Kentor.AuthServices.Saml2P
             x.AddAttributeIfNotNullOrEmpty("AttributeConsumingServiceIndex", AttributeConsumingServiceIndex);
 
             // Add parameter for nameid policy
-            var nameid = new XElement(Saml2Namespaces.Saml2P + NameIdPolicy);
-            nameid.AddAttributeIfNotNullOrEmpty("AllowCreate", NameIdPolicyAllowCreate);
-            x.Add(nameid);
+            if (NameIdPolicyAllowCreate != null)
+            {
+                var nameid = new XElement(Saml2Namespaces.Saml2P + NameIdPolicy);
+                nameid.AddAttributeIfNotNullOrEmpty("AllowCreate", NameIdPolicyAllowCreate);
+                x.Add(nameid);
+            }
 
             // Add requested authentication context
             if (RequestedAuthenticationContext != null && RequestedAuthenticationContext != string.Empty)
@@ -87,7 +92,9 @@ namespace Kentor.AuthServices.Saml2P
         /// <returns>string containing the Xml data.</returns>
         public override string ToXml()
         {
-            return ToXElement().ToString();
+            XDocument xDoc = new XDocument();
+            xDoc.Add(ToXElement());
+            return xDoc.ToString();
         }
 
         /// <summary>

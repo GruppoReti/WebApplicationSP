@@ -42,6 +42,22 @@ namespace Kentor.AuthServices.Configuration
         }
 
         /// <summary>
+        /// Whether to add in authn request the nameid policy or not (may give problem on ADFS)
+        /// </summary>
+        [ConfigurationProperty("showNameIdPolicy", IsRequired = false, DefaultValue = true)]
+        public bool ShowNameIdPolicy
+        {
+            get
+            {
+                return (bool)base["showNameIdPolicy"];
+            }
+            internal set
+            {
+                base["showNameIdPolicy"] = value;
+            }
+        }
+
+        /// <summary>
         /// Destination url to send requests to.
         /// </summary>
         [ConfigurationProperty("destinationUrl")]
