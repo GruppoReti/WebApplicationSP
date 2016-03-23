@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="kentor.authServices">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="serviceCertificate">
+          <xs:complexType>
+            <xs:attribute name="fileName" type="xs:string" use="required" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="identityProviders">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="add">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute name="entityId" type="xs:string" use="required" />
+                      <xs:attribute name="destinationUrl" type="xs:string" use="required" />
+                      <xs:attribute name="allowUnsolicitedAuthnResponse" type="xs:boolean" use="required" />
+                      <xs:attribute name="binding" type="xs:string" use="required" />
+                      <xs:attribute name="metadataUrl" type="xs:string" use="optional" />
+                      <xs:attribute name="loadMetadata" type="xs:boolean" use="required" />
+                      <xs:attribute name="showNameIdPolicy" type="xs:boolean" use="optional" />
+                      <xs:attribute name="verifyCertificate" type="xs:boolean" use="optional" />
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="entityId" type="xs:string" use="required" />
+      <xs:attribute name="returnUrl" type="xs:string" use="required" />
+      <xs:attribute name="discoveryServiceUrl" type="xs:string" use="required" />
+      <xs:attribute name="requestedAuthenticationContext" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
