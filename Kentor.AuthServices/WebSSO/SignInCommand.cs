@@ -28,6 +28,7 @@ namespace Kentor.AuthServices.WebSso
                 options);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "idp")]
         public static CommandResult CreateResult(
             EntityId idpEntityId,
             string returnPath,

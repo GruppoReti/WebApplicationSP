@@ -17,6 +17,7 @@ namespace Kentor.AuthServices.Metadata
         /// Load and parse metadata.
         /// </summary>
         /// <param name="metadataUrl">Url to metadata</param>
+        /// <param name="VerifyCertificate">Flag to indicate whether to check SSL certificate or not</param>
         /// <returns>EntityDescriptor containing metadata</returns>
         public static ExtendedEntityDescriptor LoadIdp(Uri metadataUrl, bool VerifyCertificate)
         {
